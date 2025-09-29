@@ -69,7 +69,7 @@ void pop_stack(Stack* pS)
     if (!empty_stack(pS))
         pS->size--;
 }
-int top(Stack* pS)
+int top_stack(Stack* pS)
 {
     if (!empty_stack(pS))
         return pS->data[pS->size];
@@ -89,20 +89,20 @@ int full_queue(Queue* pQ)
 {
     return (pQ->front == 1 && pQ->rear == MAX);
 }
-void enqueue(Queue* pQ, int x)
+void push_queue(Queue* pQ, int x)
 {
     if (pQ->rear == MAX)    
         return;
     pQ->rear++;
     pQ->data[pQ->rear] = x;
 }
-void dequeue(Queue* pQ)
+void pop_queue(Queue* pQ)
 {
     if (empty_queue(pQ))  
         return;
     pQ->front++;
 }
-int top_queue(Queue* pQ)
+int front_queue(Queue* pQ)
 {
     return pQ->data[pQ->front];
 }

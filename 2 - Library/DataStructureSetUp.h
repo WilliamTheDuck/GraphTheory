@@ -29,7 +29,7 @@ int empty_stack(Stack* pS);
 int full_stack(Stack* pS);
 void push_stack(Stack* pS, int x);
 void pop_stack(Stack* pS);
-int top(Stack* pS);
+int top_stack(Stack* pS);
 
 /* ================== QUEUE ================== */
 typedef struct
@@ -41,9 +41,9 @@ typedef struct
 void init_queue(Queue* pQ); // Initializes pQ->front and pQ->rear to 0
 int empty_queue(Queue* pQ);
 int full_queue(Queue* pQ);
-void enqueue(Queue* pQ, int x);
-void dequeue(Queue* pQ);
-int top_queue(Queue* pQ);
+void push_queue(Queue* pQ, int x);
+void pop_queue(Queue* pQ);
+int front_queue(Queue* pQ);
 
 /* ================== GRAPH (Adjacency Matrix) ================== */
 typedef struct 
