@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "DataStructureSetUp.h"
+#include <string.h>
+#include "DataStructure.h"
 
 /* ================== LIST ================== */
 void init_list(List* pL)
@@ -41,7 +42,7 @@ void print_list(List* pL)
 {
     for (int i = 1; i <= pL->size; i++)
         printf("%d ", pL->data[i]);
-    printf("0\n");
+    printf("\n");
 }
 
 /* ================== STACK ================== */
@@ -71,8 +72,7 @@ void pop_stack(Stack* pS)
 }
 int top_stack(Stack* pS)
 {
-    if (!empty_stack(pS))
-        return pS->data[pS->size];
+    return pS->data[pS->size];
 }
 
 /* ================== QUEUE ================== */
@@ -224,20 +224,16 @@ void read_graph_adjlist(Graph* pG, int directed)
     int n;
     scanf("%d", &n);
     init_graph(pG, n);
-    // Insert adjacency list
+    
     for (int u = 1; u <= n; u++) 
-        while (1) 
-        {
-            int v;
-            scanf("%d", &v);
-            if (v == 0) break;
-            {
-                if (!directed)
-                    add_edge(pG, u, v);
-                else
-                    add_edge_Directed(pG, u, v);
-            }
-        }
+    {
+        int v;
+        scanf("%d", &v);
+        if (!directed)
+            add_edge(pG, u, v);
+        else
+            add_edge_Directed(pG, u, v);
+    }   
 }
 void read_graph_incidmatrix(Graph* pG, int directed) 
 {
@@ -276,6 +272,37 @@ void read_graph_incidmatrix(Graph* pG, int directed)
                 add_edge_Directed(pG, u, v);
         }
     }
+}
+void read_from_file(Graph* pG, char graph_type[], int directed)
+{
+    char filename[MAX];
+    // Remove trailing newline from filename
+    fgets(filename, MAX, stdin);
+    filename[strcspn(filename, "\n")] = 0;
+    
+    FILE* f = freopen(filename, "r", stdin);
+    if (f == NULL)
+    {
+        perror("Error opening file");
+        return;
+    }
+    // Compare strings to determine graph type
+    if (strcmp(graph_type, "edgelist") == 0) 
+        read_graph_edgelist(pG, directed);
+    else if (strcmp(graph_type, "adjmatrix") == 0) 
+        read_graph_adjmatrix(pG, directed);
+    else if (strcmp(graph_type, "adjlist") == 0)
+        read_graph_adjlist(pG, directed);
+    else if (strcmp(graph_type, "incidmatrix") == 0)
+        read_graph_incidmatrix(pG, directed);
+    else
+        return;
+    // Restore standard input to the console
+    #ifdef _WIN32
+        freopen("CON", "r", stdin); // Windows
+    #else
+        freopen("/dev/tty", "r", stdin); // Linux, macOS
+    #endif
 }
 
 /* ================== PRINT GRAPH ================== */

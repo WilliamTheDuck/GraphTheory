@@ -69,6 +69,7 @@ void read_graph_edgelist(Graph* pG, int directed);
 void read_graph_adjmatrix(Graph* pG, int directed);
 void read_graph_adjlist(Graph* pG, int directed);
 void read_graph_incidmatrix(Graph* pG, int directed);
+void read_from_file(Graph* pG, char graph_type[], int directed);
 
 // Graph printing functions
 void print_graph(Graph* pG);

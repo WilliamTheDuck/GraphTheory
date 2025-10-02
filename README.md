@@ -7,7 +7,7 @@
 ### ***Basic Knowledge***
 ---
 
-<code style="color : aquamarine">[1] Set Up Basic Operations</code>
+[1] Set Up Basic Operations
 
       + Initialize graph
 
@@ -23,7 +23,7 @@
 
       + Print graph
 
-<code style="color : aquamarine">[2] Special Types Of Graphs</code>
+[2] Special Types Of Graphs
       
       + Undirected graph
 
@@ -41,7 +41,7 @@
 
       + Trees & Forests
 
-<code style="color : aquamarine">[3] Connectivity Of A Graph</code>
+[3] Connectivity Of A Graph
       
       + Depth First Search (DFS) using stack
 
@@ -51,7 +51,7 @@
 
       + Tarjan to find Strongly Connected Components (SCC)
 
-<code style="color : aquamarine">[4] Graph Properties & Tranversal</code>
+[4] Graph Properties & Tranversal
 
       + Erdos - Gallai
 
@@ -64,7 +64,7 @@
 ### ***Advanced Knowledge***
 ---
 
-<code style="color : aquamarine">[1] Shortest Path</code>
+[1] Shortest Path
 
       + Moore - Dijkstra
 
@@ -74,13 +74,13 @@
 
       + A* (Heuristic)
 
-<code style="color : aquamarine">[2] Topological Sort</code>
+[2] Topological Sort
 
       + Topological sort
 
       + DFS & Kahn
 
-<code style="color : aquamarine">[3] Minimum Undirected Spanning Tree</code>
+[3] Minimum Undirected Spanning Tree
 
       + Kruskal
 
@@ -88,14 +88,13 @@
 
       + Boruvka
 
-<code style="color : aquamarine">[4] Minimum Directed Spanning Tree</code>
+[4] Minimum Directed Spanning Tree
 
       + Chu - Liu
 
       + Edmonds
 
-<code style="color : aquamarine">[5] Maximum Flow
-</code>
+[5] Maximum Flow
 
       + Ford - Fulkerson
 
@@ -110,32 +109,32 @@
 
 > _To install and use this custom static library in your `MSYS2/MinGW` environment, follow these steps._
 
-- Copy the header file (`DataStructureSetUp.h`) and place it into the global include directory:  
+- Copy the header file (`DataStructure.h`) and place it into the global include directory:  
 ```
 C:\msys64\ucrt64\include
 ```
 
-- Copy the compile static library (`libgraph.a`) and place it into the global library directory:  
+- Copy the compile static library (`libdatastructure.a`) and place it into the global library directory:  
 ```
 C:\msys64\ucrt64\lib
 ```
 
 - Usage in your project: Include the header as if it were a system library:  
 ```c
-#include <DataStructureSetUp.h>
+#include <DataStructure.h>
 ```
 
-- When compiling, link against the static library by adding `-lgraph`: The prefix lib and the suffix .a are omitted when using the -l option. For example, `-lgraph` links against `libgraph.a`. Notice that you also need to replace your own file names `main.c` and `main.exe` accordingly.
+- When compiling, link against the static library by adding `-ldatastructure`: The prefix lib and the suffix .a are omitted when using the -l option. For example, `-ldatastructure` links against `libdatastructure.a`. Notice that you also need to replace your own file names `main.c` and `main.exe` accordingly.
 ```shell
-gcc main.c -lgraph -o main.exe
+gcc main.c -ldatastructure -o main.exe
 ```
-- Or we could insert `-lgraph` before the `-o` in `args`-`tasks.json` (in `.vscode` folder). In that way, we simply push `f5` to debug without inserting the line above into the terminal.
+- Or we could insert `-ldatastructure` before the `-o` in `args`-`tasks.json` (in `.vscode` folder). In that way, we simply push `f5` to debug without inserting the line above into the terminal.
 ```json
 "args": [
         "-fdiagnostics-color=always",
         "-g",
         "${file}",
-        "-lgraph",
+        "-ldatastructure",
         "-o",
         "${fileDirname}\\${fileBasenameNoExtension}.exe"
       ],
