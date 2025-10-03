@@ -102,10 +102,10 @@
 
 #
 
-### ***Installation Library Guide***
+### ***Installation And Customization Library Guide***
 ---
 
-> _To install and use this custom static library in your `MSYS2/MinGW` environment, follow these steps._
+> _To install and use my static library in your MSYS2/MinGW environment, follow these steps._
 
 - Copy the header file (`DataStructure.h`) and place it into the global include directory:  
 ```
@@ -136,6 +136,64 @@ gcc main.c -ldatastructure -o main.exe
         "-o",
         "${fileDirname}\\${fileBasenameNoExtension}.exe"
       ],
+```
+> _You can also customize these files as you prefer. Here are the steps you can follow to recreate your own static library._
+
+- First, make your own `.c` file with  definitions (implementations) of functions. For instance:
+```c
+#include <stdio.h>
+#include <string.h>
+#include "DataStructure.h"
+
+/* ================== LIST ================== */
+void init_list(List* pL)
+{
+    pL->size = 0;
+}
+void append_list(List* pL, int x)
+{
+    pL->size++;
+    pL->data[pL->size] = x;
+}
+```
+- Worthy noticing that you also need to have this line in the `.c` file.
+```c
+#include "DataStructure.h"
+```
+- After that, we make a header file with the same name of the `DataStructure.c` file (`DataStructure.h`). This header file will include the declarations of mentioned functions in the `.c` file.
+```c
+#ifndef DATA_STRUCTURE_SETUP_H
+#define DATA_STRUCTURE_SETUP_H
+
+#define MAX 200
+
+/* ================== LIST ================== */
+typedef struct
+{
+    int data[MAX];
+    int size;
+} List;
+
+void init_list(List* pL); // Initializes pL->size to 0
+void append_list(List* pL, int x);
+
+#endif /* DATA_STRUCTURE_SETUP_H */
+```
+- `#ifndef` means _"if not defined"_ and `#endif` stands for _"end if"_. A primary use of `#ifndef` is to prevent multiple inclusions of header files, a technique called _"header guarding"_. 
+
+- The next step is making an object `.o` file of `.c` file (you should name it the same). Change the directory containing your `.c` file in shell to use the below command. 
+```shell
+cd <"Your directory containing the .c file">
+gcc -c -Wall -g <Your file name>.c -o <Your file name>.o
+```
+- Last but not least, make a static library with this command. Name your library `lib<Name>.a`.
+```shell
+ar rcs <lib___>.a <Object file>.o
+```
+- Copy the header file `.h` to `include` and `lib...a` to `lib` as I meantioned above with shell commands or manually like the above steps.
+```shell
+xcopy /Y DataStructure.h C:\msys64\ucrt64\include
+xcopy /Y libdatastructure.a C:\msys64\ucrt64\lib
 ```
 
 ### ***Autofill Section Header In Code Guide***
