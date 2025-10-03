@@ -13,6 +13,7 @@ typedef struct
 void init_list(List* pL); // Initializes pL->size to 0
 void append_list(List* pL, int x);
 int element_at(List* pL, int i);
+void concat_list(List* dst, List src);
 void swap(int* x, int* y);
 void selection_sort(List* pL);
 void print_list(List* pL);

@@ -41,7 +41,7 @@
 
       + Trees & Forests
 
-[3] Connectivity Of A Graph
+[3] Transversal And Connectivity Of A Graph
       
       + Depth First Search (DFS) using stack
 
@@ -50,8 +50,6 @@
       + Breadth First Search (BFS) using queue
 
       + Tarjan to find Strongly Connected Components (SCC)
-
-[4] Graph Properties & Tranversal
 
       + Erdos - Gallai
 

@@ -16,6 +16,13 @@ int element_at(List* pL, int i)
 {
     return pL->data[i];
 }
+void concat_list(List* dst, List src)
+{
+    for (int i = 1; i <= src.size; i++)
+    {
+        append_list(dst, src.data[i]);
+    }
+}
 void swap(int* x, int* y)
 {
     int tem = *y;
