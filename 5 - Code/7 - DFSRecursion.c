@@ -23,27 +23,28 @@ void DFS_Recursion_Visit(Graph* pG, int x, int mark[], int parent[], List* pL)
 /* ================== DEPTH FIRST SEARCH RESURSION ================== */
 List DFS_Recursion(Graph* pG, int x, int mark[], int parent[])
 {
-    /* Version 1:
-    List L; init_list(&L);
-    mark[x] = 1;
-    append_list(&L, x);
+    // Version 1: 
+    // List L; init_list(&L);
+    // mark[x] = 1;
+    // append_list(&L, x);
 
-    List N = neighbours(pG, x);
-    for (int i = 1; i <= N.size; i++)
-    {
-        int v = N.data[i];
-        if (mark[v] == 0)
-        {
-            parent[v] = x;
+    // List N = neighbours(pG, x);
+    // for (int i = 1; i <= N.size; i++)
+    // {
+    //     int v = N.data[i];
+    //     if (mark[v] == 0)
+    //     {
+    //         parent[v] = x;
 
-            // If neighbour (of x) is not visited yet
-            List subL = DFS_Recursion(pG, v, mark, parent);
-            // Concatenate subL to L after each function call
-            for (int j = 1; j <= subL.size; j++)
-                append_list(&L, subL.data[j]);
-    */
+    //         // If neighbour (of x) is not visited yet
+    //         List subL = DFS_Recursion(pG, v, mark, parent);
+    //         // Concatenate subL to L after each function call
+    //         for (int j = 1; j <= subL.size; j++)
+    //             append_list(&L, subL.data[j]);
+    //     }
+    // }
            
-    /* Version 2: */   
+    // Version 2: 
     List L; 
     init_list(&L);
     DFS_Recursion_Visit(pG, x, mark, parent, &L);
