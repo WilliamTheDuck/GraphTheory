@@ -22,7 +22,7 @@ List DFS(Graph* pG, int x, int mark[], int parent[])
 
 		// Traverse u's neighbours
 		List N = neighbours(pG, u);
-        for (int i = N.size; i >= 1; i--)
+        for (int i = 1; i <= N.size; i++)
         {
             int v = N.data[i];   
 			// Push all neighbours of current vertex

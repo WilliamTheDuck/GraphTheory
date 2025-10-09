@@ -50,6 +50,44 @@ List DFS_Recursion(Graph* pG, int x, int mark[], int parent[])
     return L;
 }
 
+/* Same result with DFS but check for neighbours in reverse tranversion
+List DFS(Graph* pG, int x, int mark[], int parent[])
+{
+	List L; init_list(&L);
+	Stack S; init_stack(&S);
+	push_stack(&S, x);
+	parent[x] = -1;
+	
+	while(!empty_stack(&S))
+	{
+		int u = top_stack(&S);
+		pop_stack(&S);
+		
+		if (mark[u] == 1)
+			continue;
+		mark[u] = 1;
+		append_list(&L, u);
+
+		// Traverse u's neighbours
+		List N = neighbours(pG, u);
+        for (int i = N.size; i >= 1; i--)
+        {
+            int v = N.data[i];   
+			// Push all neighbours of current vertex
+			// Assign u to become parent of v while visiting for the first time u -> v 
+			// In that way, we don't need to mention it again since it was visited
+			// Notice to use this condition with DFS
+			if (mark[v] == 0) 
+			{   
+				parent[v] = u;
+				push_stack(&S, v);
+			}
+        }
+	}
+	return L;
+}
+*/
+
 /* ================== MAIN ================== */
 int main()
 {
