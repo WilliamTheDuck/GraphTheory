@@ -49,16 +49,20 @@
 
       + Breadth First Search (BFS) using queue
 
-      + Tarjan to find Strongly Connected Components (SCC)
+      + Kosaraju's algorithm to find Strongly Connected Components (SCC)
+      
+      + Tarjan's algorithm to find Strongly Connected Components (SCC)
 
-      + Erdos - Gallai
+[4] Cycle
 
-      + Bipartite graph & 2-colors check
+      + Bipartite graph & 2-colors check to check cycle
 
-      + Eulerian trail 
+      + Construct Eulerian path using Fleury's algorithm
+
+      + Construct Eulerian path using Hierholzer's algorithm
 
       + Hamiltonian path 
-
+      
 ### ***Advanced Knowledge***
 ---
 
@@ -74,9 +78,9 @@
 
 [2] Topological Sort
 
-      + Topological sort
-
-      + DFS & Kahn
+      + Kahn 
+      
+      + Graph Ranking
 
 [3] Minimum Undirected Spanning Tree
 
