@@ -55,7 +55,9 @@
 
 [4] Cycle
 
-      + Bipartite graph & 2-colors check to check cycle
+      + Three colours to check cycle 
+
+      + Bipartite graph 
 
       + Construct Eulerian path using Fleury's algorithm
 
