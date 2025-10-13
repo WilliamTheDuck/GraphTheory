@@ -78,4 +78,10 @@ void print_degree(Graph* pG, int directed);
 void print_max_degree(Graph* pG);
 void print_neighbours(Graph* pG);
 
+// Weighted graph functions
+void init_weightedgraph(Graph* pG, int n);
+void add_edge_weightedgraph(Graph* pG, int u, int v, int w);
+void add_edge_weightedgraph_Directed(Graph* pG, int u, int v, int w);
+void read_weightedgraph_edgelist(Graph* pG, int directed);
+
 #endif /* DATA_STRUCTURE_SETUP_H */

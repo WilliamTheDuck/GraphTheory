@@ -359,3 +359,39 @@ void print_neighbours(Graph* pG)
         print_list(&L);
     }
 }
+
+/* ================== WEIGHTED GRAPH ================== */
+void init_weightedgraph(Graph* pG, int n)
+{
+    pG->n = n;
+    pG->m = 0;
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            pG->A[i][j] = -1;
+}
+void add_edge_weightedgraph(Graph* pG, int u, int v, int w)
+{
+    pG->A[u][v] = w;
+    pG->A[v][u] = w;
+    pG->m++;
+}
+void add_edge_weightedgraph_Directed(Graph* pG, int u, int v, int w)
+{
+    pG->A[u][v] = w;
+    pG->m++;
+}
+void read_weightedgraph_edgelist(Graph* pG, int directed)
+{
+    int n, m;
+    scanf("%d%d", &n, &m);
+    init_weightedgraph(pG, n);
+    for (int e = 1; e <= m; e++)
+    {
+        int x, y, w;
+        scanf("%d%d%d", &x, &y, &w);
+        if (!directed)
+            add_edge_weightedgraph(pG, x, y, w);
+        else
+            add_edge_weightedgraph_Directed(pG, x, y, w);
+    }
+}
