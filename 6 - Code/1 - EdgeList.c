@@ -76,16 +76,6 @@ int adjacent_Directed(Graph* pG, int u, int v)
             return 1;
     return 0;
 }
-int check_opposite(Graph* pG, int u, int v) 
-{
-    if (u == v)
-        return 0;
-    for (int e = 1; e <= pG->m; e++)
-        // True if found an opposite direction graph 
-        if (pG->edges[e].u == v && pG->edges[e].v == u) 
-            return 1;
-    return 0;
-}
 void add_edge(Graph* pG, int u, int v)
 {
     pG->m++;
