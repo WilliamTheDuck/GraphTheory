@@ -7,104 +7,104 @@
 ### ***Basic Knowledge***
 ---
 
-[1] Set Up Basic Operations
+**[1] Set Up Basic Operations**
 
-      + Initialize graph
++ Initialize graph
+  
++ Adjacent edges check
 
-      + Adjacent edges check
++ Add edge
 
-      + Add edge
++ Degree
 
-      + Degree
++ Neighbors
 
-      + Neighbors
++ Read graph
 
-      + Read graph
++ Print graph
 
-      + Print graph
-
-[2] Special Types Of Graphs
+**[2] Special Types Of Graphs**
       
-      + Undirected graph
++ Undirected graph
 
-      + Directed graph
++ Directed graph
 
-      + Weighted graph
++ Weighted graph
 
-      + Multigraph 
++ Multigraph 
 
-      + Pseudograph
++ Pseudograph
 
-      + Subgraph
++ Subgraph
 
-      + Induced graph
++ Induced graph
 
-      + Trees & Forests
++ Trees & Forests
 
-[3] Transversal And Connectivity Of A Graph
+**[3] Transversal And Connectivity Of A Graph**
       
-      + Depth First Search (DFS) using stack
++ Depth First Search (DFS) using stack
 
-      + Depth First Search (DFS) using recursion
++ Depth First Search (DFS) using recursion
 
-      + Breadth First Search (BFS) using queue
++ Breadth First Search (BFS) using queue
 
-      + Kosaraju's algorithm to find Strongly Connected Components (SCC)
-      
-      + Tarjan's algorithm to find Strongly Connected Components (SCC)
++ Kosaraju's algorithm to find Strongly Connected Components (SCC)
 
-[4] Cycle
++ Tarjan's algorithm to find Strongly Connected Components (SCC)
 
-      + Three colours to check cycle 
+**[4] Cycle**
 
-      + Bipartite graph 
++ Three colours to check cycle 
 
-      + Construct Eulerian path using Fleury's algorithm
++ Bipartite graph 
 
-      + Construct Eulerian path using Hierholzer's algorithm
++ Construct Eulerian path using Fleury's algorithm
 
-      + Hamiltonian path 
++ Construct Eulerian path using Hierholzer's algorithm
+
++ Hamiltonian path 
       
 ### ***Advanced Knowledge***
 ---
 
-[1] Shortest Path
+**[1] Shortest Path**
 
-      + Moore - Dijkstra
++ Moore - Dijkstra
 
-      + Bellman - Ford
++ Bellman - Ford
 
-      + Floyd - Warshall
++ Floyd - Warshall
 
-      + A* (Heuristic)
++ A* (Heuristic)
 
-[2] Topological Sort
+**[2] Topological Sort**
 
-      + Kahn 
-      
-      + Graph Ranking
++ Kahn 
 
-[3] Minimum Undirected Spanning Tree
++ Graph Ranking
 
-      + Kruskal
+**[3] Minimum Undirected Spanning Tree**
 
-      + Prim
++ Kruskal
 
-      + Boruvka
++ Prim
 
-[4] Minimum Directed Spanning Tree
++ Boruvka
 
-      + Chu - Liu
+**[4] Minimum Directed Spanning Tree**
 
-      + Edmonds
++ Chu - Liu
 
-[5] Maximum Flow
++ Edmonds
 
-      + Ford - Fulkerson
+**[5] Maximum Flow**
 
-      + Edmonds - Karp
++ Ford - Fulkerson
 
-      + Dinic
++ Edmonds - Karp
+
++ Dinic
 
 #
 
