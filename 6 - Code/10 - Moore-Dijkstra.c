@@ -8,7 +8,7 @@ int mark[MAX];
 int pi[MAX];
 int parent[MAX];
 
-void MooreDijkstra(Graph* pG, int x)
+void MooreDijkstra(Graph* pG, int x) // O(n^2)
 {
     int u;
     // Initialize mark[], pi[]
