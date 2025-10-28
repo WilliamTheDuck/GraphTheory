@@ -214,7 +214,9 @@ xcopy /Y libdatastructure.a C:\msys64\ucrt64\lib
 - Copy `sectioncomment.code-snippets` and put it in your `.vscode` folder.
 
 - Usage: In any `.c` or `.h` file, just type the prefix (`sec`, `sdc`, or `ssc`) and press `Tab`.
-It will automatically expand into a section header with a placeholder for you to type in the section name. Ex: type "sec" and a `Tab`, it will be like this:
+It will automatically expand into a section header with a placeholder for you to type in the section name.
+
+  Eg: type "sec" and a `Tab`, it will be like this:
 ```c
 /* ==================  ================== */
 ```
