@@ -7,7 +7,7 @@
 ### ***Basic Knowledge***
 ---
 
-**[1] Set Up Basic Operations**
+**[1] Set Up Operations**
 
 + Initialize graph
   
@@ -23,7 +23,7 @@
 
 + Print graph
 
-**[2] Special Types Of Graphs**
+**[2] Types Of Graphs**
       
 + Undirected graph
 
