@@ -63,7 +63,9 @@
 
 + Construct Eulerian path using Hierholzer's algorithm
 
-+ Hamiltonian path 
++ Hamiltonian path
+
++ Travelling Salesman Problem
       
 ### ***Advanced Knowledge***
 ---
@@ -83,6 +85,8 @@
 + Kahn 
 
 + Graph Ranking
+
++ Project Management
 
 **[3] Minimum Undirected Spanning Tree**
 
