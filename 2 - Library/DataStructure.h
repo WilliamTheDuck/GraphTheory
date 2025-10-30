@@ -17,6 +17,7 @@ void concat_list(List* dst, List src);
 void swap(int* x, int* y);
 void selection_sort(List* pL);
 void print_list(List* pL);
+void reverse_list(List* pL);
 
 /* ================== STACK ================== */
 typedef struct 

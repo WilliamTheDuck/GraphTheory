@@ -13,7 +13,7 @@ int has_circle;
 #define RED 2
 int conflict;
 
-/* ================== 3 COLOURS ================== */
+/* ================== 3 COLOURING ================== */
 void three_colorize(Graph* pG, int u, int* has_circle, int parent) 
 {
     mark[u] = GRAY;

@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 #include <DataStructure.h>
 
 /* ================== MOORE-DIJKSTRA ================== */
@@ -8,7 +7,7 @@ int mark[MAX];
 int pi[MAX];
 int parent[MAX];
 
-void MooreDijkstra(Graph* pG, int x) // O(n^2)
+void MooreDijkstra(Graph* pG, int s) // O(n^2) with n is number of vertices 
 {
     int u;
     // Initialize mark[], pi[]
@@ -17,14 +16,14 @@ void MooreDijkstra(Graph* pG, int x) // O(n^2)
         mark[i] = 0;
         pi[i] = oo;
     }
-    pi[x] = 0; parent[x] = -1;
+    pi[s] = 0; parent[s] = -1;
 
     // Transverse n-1 times
     for (int k = 1; k <= pG->n - 1; k++)
     {
         int min_pi = oo;
 
-        // Find vertex u that has mark[u] == 0 and has smallest pi[u]
+        // 1. Find vertex u that has mark[u] == 0 and has smallest pi[u]
         for (int j = 1; j <= pG->n; j++)
             if (mark[j] == 0 && pi[j] < min_pi)
             {
@@ -32,15 +31,127 @@ void MooreDijkstra(Graph* pG, int x) // O(n^2)
                 u = j;
             }
 
-        // Mark u
+        // 2. Mark u
         mark[u] = 1;
 
-        // Update pi[v] and parent[v] with v's are neighbours of u
+        // 3. Update pi[v] and parent[v] with v's are neighbours of u
         for (int v = 1; v <= pG->n; v++)
             if (pG->A[u][v] != -1 && mark[v] == 0 && (pi[v] > pi[u] + pG->A[u][v]))
             {
                 pi[v] = pi[u] + pG->A[u][v];
                 parent[v] = u;
+            }
+    }
+}
+
+/* ================== PRIORITY QUEUE ================== */
+typedef struct
+{
+    int vertex, dist;
+} Element; // Node containing vertex u & distance pi[u]
+typedef struct
+{
+    Element data[MAX];
+    int size;
+} MinHeap; // Use Heap to build priority queue
+
+void init_minheap(MinHeap* pH)
+{
+    pH->size = 0;
+}
+int empty_minheap(MinHeap* pH)
+{
+    return pH->size == 0;
+}
+void swap_vertices(Element* x, Element* y)
+{
+    Element tmp = *x;
+    *x = *y;
+    *y = tmp;
+}
+void PushDown(MinHeap* pH, int i) // O(logn)
+{
+    int minIdx = i;
+    int L = 2*i, R = 2*i + 1; // L: left, R: right
+
+    if (L <= pH->size && pH->data[L].dist < pH->data[minIdx].dist)
+        minIdx = L;
+    if (R <= pH->size && pH->data[R].dist < pH->data[minIdx].dist)
+        minIdx = R;
+    
+    if (minIdx != i)
+    {
+        swap_vertices(&pH->data[i], &pH->data[minIdx]);
+        PushDown(pH, minIdx);
+    }
+}
+void push_minheap(MinHeap* pH, Element x)
+{
+    pH->size++;
+    int i = pH->size;
+    pH->data[i] = x;
+
+    // Bubble up
+    while (i > 1 && pH->data[i].dist < pH->data[i/2].dist)
+    {
+        swap_vertices(&pH->data[i], &pH->data[i/2]);
+        i /= 2;
+    }
+}
+void pop_minheap(MinHeap* pH)
+{
+    pH->data[1] = pH->data[pH->size];
+    pH->size--;
+    PushDown(pH, 1);
+}
+Element top_minheap(MinHeap* pH)
+{
+    return pH->data[1];
+}
+
+/* ================== MOORE - DIJKSTRA UPGRADE ================== */
+void MooreDijkstra_PriorityQueue(Graph* pG, int s) // O((n+m)logn)
+{
+    for (int u = 1; u <= pG->n; u++)
+    {
+        parent[u] = -1;
+        mark[u] = 0;
+        pi[u] = oo;
+    }
+    pi[s] = 0;
+
+    MinHeap H;
+    init_minheap(&H);
+    Element start = {s, 0};
+    push_minheap(&H, start);
+
+    // Instead of find smallest pi[u] through out the entire graph
+    // Use priority queue for optimization (quite like BFS and DFS)
+    while (!empty_minheap(&H))
+    {
+        Element min = top_minheap(&H);
+        pop_minheap(&H);
+
+        int u = min.vertex;
+        // Avoid overlap stale entries pushing multiple vertices to heap
+        if (min.dist != pi[u])
+            continue;
+        if (mark[u] != 0)
+            continue;
+        mark[u] = 1;
+
+        for (int v = 1; v <= pG->n; v++)
+            if (pG->A[u][v] >= 0 && mark[v] == 0)
+            {
+                int w = pG->A[u][v];
+                if (pi[v] > pi[u] + w)
+                {
+                    pi[v] = pi[u] + w;
+                    parent[v] = u;
+
+                    Element e = {v, pi[v]};
+                    push_minheap(&H, e); // Push neighbours to heap
+                }
             }
     }
 }
@@ -85,17 +196,40 @@ void print_shortestpath(Graph* pG, int s, int t)
         pop_stack(&S);
         first = 0;
     }
-    printf("\n");
+}
+void print_shortestpath_ver2(Graph* pG, int s, int t)
+{
+	int path[pG->n];
+	int count = 0; // Number of vertices of the path
+    int current = t; 
+    // Trace back from t (current) to its ancestors (s -> .. -> t)
+	while (current != -1)
+    {
+        path[count] = current;
+        count++;
+        current = parent[current]; // Uppdate current to its parent (Trace back & add to path[])
+	}
+    // Print backwards all vertices in path[], with root/start (s) is the last element & goal (t) is the first element
+	for (int i = count-1; i >= 0; i--)
+    {
+		printf("%d", path[i]);
+		if (i > 0) // Stop printing "->" as i reaches vertex t
+            printf(" -> ");
+	}
 }
 
 /* ================== MAIN ================== */
 int main()
 {
     Graph G;
-    read_weightedgraph_edgelist(&G, 1);
-    int s, t; scanf("%d%d", &s, &t);
+    freopen("D:\\CODE C\\Library\\Data-Weighted_EdgeList-3.txt", "r", stdin);
+        read_weightedgraph_edgelist(&G, 0);
+        int s, t; scanf("%d%d", &s, &t);
+    fclose(stdin);
 
-    MooreDijkstra(&G, s);
-    print_shortestpath(&G, s, t);
+    MooreDijkstra_PriorityQueue(&G, s);
+    
+    print_pi_parent(&G);
+    print_shortestpath_ver2(&G, s, t);
     return 0;
 }

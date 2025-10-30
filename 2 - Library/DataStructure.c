@@ -51,6 +51,11 @@ void print_list(List* pL)
         printf("%d ", pL->data[i]);
     printf("\n");
 }
+void reverse_list(List* pL)
+{
+    for (int i = 1; i <= pL->size/2; i++)
+        swap(&(pL->data[i]), &(pL->data[pL->size-i+1]));
+}
 
 /* ================== STACK ================== */
 void init_stack(Stack* pS)
