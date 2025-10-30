@@ -7,7 +7,7 @@
 ### ***Basic Knowledge***
 ---
 
-**[1] Set Up Basic Operations**
+**[1] Set Up Operations**
 
 + Initialize graph
   
@@ -23,7 +23,7 @@
 
 + Print graph
 
-**[2] Special Types Of Graphs**
+**[2] Types Of Graphs**
       
 + Undirected graph
 
@@ -63,7 +63,9 @@
 
 + Construct Eulerian path using Hierholzer's algorithm
 
-+ Hamiltonian path 
++ Hamiltonian path
+
++ Travelling Salesman Problem
       
 ### ***Advanced Knowledge***
 ---
@@ -83,6 +85,8 @@
 + Kahn 
 
 + Graph Ranking
+
++ Project Management
 
 **[3] Minimum Undirected Spanning Tree**
 
@@ -210,7 +214,9 @@ xcopy /Y libdatastructure.a C:\msys64\ucrt64\lib
 - Copy `sectioncomment.code-snippets` and put it in your `.vscode` folder.
 
 - Usage: In any `.c` or `.h` file, just type the prefix (`sec`, `sdc`, or `ssc`) and press `Tab`.
-It will automatically expand into a section header with a placeholder for you to type in the section name. Ex: type "sec" and a `Tab`, it will be like this:
+It will automatically expand into a section header with a placeholder for you to type in the section name.
+
+  Eg: type "sec" and a `Tab`, it will be like this:
 ```c
 /* ==================  ================== */
 ```
