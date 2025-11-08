@@ -76,7 +76,7 @@ int adjacent_Directed(Graph* pG, int u, int v)
             return 1;
     return 0;
 }
-void add_edge(Graph* pG, int u, int v)
+void add_edge(Graph* pG, int u, int v) // Base-1
 {
     pG->m++;
     pG->edges[pG->m].u = u;

@@ -119,6 +119,61 @@ int front_queue(Queue* pQ)
     return pQ->data[pQ->front];
 }
 
+/* ================== PRIORITY QUEUE ================== */
+void init_minheap(MinHeap* pH)
+{
+    pH->size = 0;
+}
+int empty_minheap(MinHeap* pH)
+{
+    return pH->size == 0;
+}
+void swap_vertices(Element* x, Element* y)
+{
+    Element tmp = *x;
+    *x = *y;
+    *y = tmp;
+}
+void PushDown(MinHeap* pH, int i) // O(logn)
+{
+    int minIdx = i;
+    int L = 2*i, R = 2*i + 1; // L: left, R: right
+
+    if (L <= pH->size && pH->data[L].dist < pH->data[minIdx].dist)
+        minIdx = L;
+    if (R <= pH->size && pH->data[R].dist < pH->data[minIdx].dist)
+        minIdx = R;
+    
+    if (minIdx != i)
+    {
+        swap_vertices(&pH->data[i], &pH->data[minIdx]);
+        PushDown(pH, minIdx);
+    }
+}
+void push_minheap(MinHeap* pH, Element x)
+{
+    pH->size++;
+    int i = pH->size;
+    pH->data[i] = x;
+
+    // Bubble up
+    while (i > 1 && pH->data[i].dist < pH->data[i/2].dist)
+    {
+        swap_vertices(&pH->data[i], &pH->data[i/2]);
+        i /= 2;
+    }
+}
+void pop_minheap(MinHeap* pH)
+{
+    pH->data[1] = pH->data[pH->size];
+    pH->size--;
+    PushDown(pH, 1);
+}
+Element top_minheap(MinHeap* pH)
+{
+    return pH->data[1];
+}
+
 /* ================== GRAPH (Adjacency Matrix) ================== */
 void init_graph(Graph* pG, int n)
 {

@@ -47,6 +47,25 @@ void push_queue(Queue* pQ, int x);
 void pop_queue(Queue* pQ);
 int front_queue(Queue* pQ);
 
+/* ================== PRIORITY QUEUE ================== */
+typedef struct
+{
+    int vertex, dist;
+} Element; // Node containing vertex u & distance pi[u]
+typedef struct
+{
+    Element data[MAX];
+    int size;
+} MinHeap; // Use Heap to build priority queue
+
+void init_minheap(MinHeap* pH);
+int empty_minheap(MinHeap* pH);
+void swap_vertices(Element* x, Element* y);
+void PushDown(MinHeap* pH, int i);
+void push_minheap(MinHeap* pH, Element x);
+void pop_minheap(MinHeap* pH);
+Element top_minheap(MinHeap* pH);
+
 /* ================== GRAPH (Adjacency Matrix) ================== */
 typedef struct 
 {
