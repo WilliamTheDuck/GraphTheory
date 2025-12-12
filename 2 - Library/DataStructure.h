@@ -10,7 +10,7 @@ typedef struct
     int size;
 } List;
 
-void init_list(List* pL); // Initializes pL->size to 0
+void init_list(List* pL); 
 void append_list(List* pL, int x);
 int element_at(List* pL, int i);
 void concat_list(List* dst, List src);
@@ -26,7 +26,7 @@ typedef struct
     int size;
 } Stack;
 
-void init_stack(Stack* pS); // Initializes pS->size to 0
+void init_stack(Stack* pS); 
 int empty_stack(Stack* pS);
 int full_stack(Stack* pS);
 void push_stack(Stack* pS, int x);
@@ -40,7 +40,7 @@ typedef struct
     int front, rear;
 } Queue;
 
-void init_queue(Queue* pQ); // Initializes pQ->front and pQ->rear to 0
+void init_queue(Queue* pQ); 
 int empty_queue(Queue* pQ);
 int full_queue(Queue* pQ);
 void push_queue(Queue* pQ, int x);

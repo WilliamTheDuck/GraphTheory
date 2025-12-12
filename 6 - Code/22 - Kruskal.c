@@ -45,7 +45,7 @@ int cmpfunc(const void* x, const void* y)
 }
 
 /* ================== KRUSKAL ================== */
-int parent[MAX], sum_w = 0;
+int parent[MAX];
 
 int find_root(int u)
 {
@@ -54,7 +54,7 @@ int find_root(int u)
     return parent[u];
 }
 
-void Kruskal(Graph* pG, Graph* pT)
+void Kruskal(Graph* pG, Graph* pT, int* sum_w)
 {
     // 1. Init parent
     for (int u = 1; u <= pG->n; u++)
@@ -84,18 +84,19 @@ void Kruskal(Graph* pG, Graph* pT)
             add_edge(pT, u, v, w);
             // Merge root u & v
             parent[root_v] = root_u;
-            sum_w += w;
+            *sum_w += w;
         }
     }
 }
 
 /* ================== READ & PRINT ================== */
-void read_graph(Graph* pG)
+void read_graph(Graph* pG, Graph* pT)
 {
     freopen("D:\\CODE C\\Library\\Data-Weighted_EdgeList-2.txt", "r", stdin);
         int n, m;
         scanf("%d%d", &n, &m);
         init_graph(pG, n);
+        init_graph(pT, n);
         
         for (int e = 1; e <= m; e++)
         {
@@ -128,10 +129,10 @@ void print_graph(Graph* pG)
 int main()
 {
     Graph G, T;
-    read_graph(&G);
-    init_graph(&T, G.n);
+    int sum_w = 0;
+    read_graph(&G, &T);
 
-    Kruskal(&G, &T);
+    Kruskal(&G, &T, &sum_w);
 
     print_graph(&T);
 

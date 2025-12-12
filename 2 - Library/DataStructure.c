@@ -90,29 +90,41 @@ int top_stack(Stack* pS)
 /* ================== QUEUE ================== */
 void init_queue(Queue* pQ)
 {
-    pQ->front = 1;
-    pQ->rear = 0;
+    pQ->front = -1;
+    pQ->rear = -1;
 }
 int empty_queue(Queue* pQ)
 {
-    return pQ->front > pQ->rear;
+    return pQ->front == -1;
 }
 int full_queue(Queue* pQ)
 {
-    return (pQ->front == 1 && pQ->rear == MAX);
+    return pQ->front == (pQ->rear + 1) % MAX;   
 }
 void push_queue(Queue* pQ, int x)
 {
-    if (pQ->rear == MAX)    
+    if (full_queue(pQ))    
         return;
-    pQ->rear++;
+    if (pQ->front == -1)
+    {
+        pQ->front = 0;
+        pQ->rear = 0;
+        pQ->data[pQ->rear] = x;
+        return;
+    }
+    pQ->rear = (pQ->rear + 1) % MAX;
     pQ->data[pQ->rear] = x;
 }
 void pop_queue(Queue* pQ)
 {
-    if (empty_queue(pQ))  
+    if (empty_queue(pQ))
         return;
-    pQ->front++;
+    if (pQ->front == pQ->rear)
+    {
+        init_queue(pQ);
+        return;
+    }
+    pQ->front = (pQ->front + 1) % MAX;
 }
 int front_queue(Queue* pQ)
 {

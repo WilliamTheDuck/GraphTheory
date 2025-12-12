@@ -34,91 +34,134 @@ void topo_sort(Graph* pG, List* pL)
 }
 
 /* ================== SOFTWARE PROJECT MANAGEMENT ================== */
-int software_project_management(Graph* pG)
+void read_software_project_management(Graph* pG, int* n, int* m, int* alpha, int* beta)
 {
-    int n, m, x, y, u, v, i;
-
-    // 1. Read file
     freopen("D:\\CODE C\\Library\\Data-ProjectManagement-2.txt", "r", stdin);
-        // Number of tasks
-        scanf("%d", &n);
-        init_graph(pG, n);
-        int alpha = n+1, beta = n+2;
-        // Time of finishing each task
-        for (int u = 1; u <= n; u++)
-            scanf("%d", &d[u]);
-        // Pairs of related tasks
-        scanf("%d", &m);
-        // List of pairs of tasks
-        for (int e = 1; e <= m; e++)
-        {
-            scanf("%d%d", &x, &y);
-            add_edge_Directed(pG, x, y);
-        }
-    fclose(stdin);
 
-    // 2. Link vertex alpha to graph
-    for (u = 1; u <= n; u++)
+    int x, y, u, e;
+    
+    // Number of tasks
+    scanf("%d", n);
+    // Create n+2 vertices graph (including alpha & beta)
+    init_graph(pG, *n + 2);
+    *alpha = *n + 1;
+    *beta = *n + 2;
+    d[*alpha] = 0;
+    // Time of finishing each task
+    for (int u = 1; u <= *n; u++)
+        scanf("%d", &d[u]);
+    // Pairs of related tasks
+    scanf("%d", m);
+    // List of pairs of tasks
+    for (e = 1; e <= *m; e++)
     {
-        int deg_neg = 0;
-        for (x = 1; x <= n; x++)
+        scanf("%d%d", &x, &y);
+        add_edge_Directed(pG, x, y);
+    }
+    fclose(stdin);
+}
+
+void add_source_sink(Graph* pG, int alpha, int beta)
+{
+    int u, x, v;
+    
+    // Link alpha to vertices with in-degree = 0
+    for (u = 1; u <= pG->n; u++)
+    {
+        int in_deg = 0;
+        for (x = 1; x <= pG->n; x++)
             if (pG->A[x][u] > 0)
-                deg_neg++;
-        if (deg_neg == 0)
+                in_deg++;
+        if (in_deg == 0)
             add_edge_Directed(pG, alpha, u);
     }
-
-    // 3. Add graph to beta
-    for (u = 1; u <= n; u++)
+    
+    // Link vertices with out-degree = 0 to beta
+    for (u = 1; u <= pG->n; u++)
     {
-        int deg_pos = 0;
-        for (v = 1; v <= n; v++)
+        int out_deg = 0;
+        for (v = 1; v <= pG->n; v++)
             if (pG->A[u][v] > 0)
-                deg_pos++;
-        if (deg_pos == 0)
+                out_deg++;
+        if (out_deg == 0)
             add_edge_Directed(pG, u, beta);
     }
+}
 
-    // 4. Topo sort
-    List L;
-    topo_sort(pG, &L);
-
-    // 5. t[u]
-    int t[MAX];
+void earliest_start(Graph* pG, List* pL, int alpha, int* t)
+{
+    int j, u, x;
     t[alpha] = 0;
-    // alpha is at the front of the list, others go from 2 -> L.size
-    for (i = 2; i <= L.size; i++)
+    
+    for (j = 2; j <= pL->size; j++)
     {
-        int u = element_at(&L, i);
+        u = element_at(pL, j);
         t[u] = -oo;
         for (x = 1; x <= pG->n; x++)
             if (pG->A[x][u] > 0)
                 t[u] = fmax(t[u], t[x] + d[x]);
     }
+    // for (j = 2; j <= L.size; j++)
+    // {
+    //     int u = element_at(&L, j);
+    //     int max_t = -oo;
+    //     for (x = 1; x <= G.n; x++)
+    //         if (G.A[x][u] > 0)  
+    //             if (t[x] + d[x] > max_t)
+    //                 max_t = d[x] + t[x];
+    //     t[u] = max_t;
+    // }
+}
 
-    // 6. T[u]
-    int T[MAX];
-    T[beta] =  t[beta];
-    // beta surely points at the end of the list, go in backward from L.size-1 -> 1
-    for (i = L.size-1; i >= 1; i--)
+void latest_start(Graph* pG, List* pL, int beta, int* t, int* T)
+{
+    int j, u, v;
+    T[beta] = t[beta];
+    
+    for (j = pL->size - 1; j >= 1; j--)
     {
-        int u = element_at(&L, i);
+        u = element_at(pL, j);
         T[u] = +oo;
         for (v = 1; v <= pG->n; v++)
             if (pG->A[u][v] > 0)
                 T[u] = fmin(T[u], T[v] - d[u]);
     }
+}
 
-    // 7. Print minimum total time to complete the project
-    printf("%d", t[pG->n]);
-}   
+void print_max_time(Graph* pG, int t[], int T[])
+{
+    int max_time = 0;
+    for (int u = 1; u <= pG->n; u++)
+        max_time = fmax(max_time, t[u] + d[u]);
+    
+    printf("%d",max_time);
+}
 
 /* ================== MAIN ================== */
 int main()
 {
     Graph G;
-    software_project_management(&G);
+    List L;
+    int n, m, alpha, beta;
+    int t[MAX], T[MAX];
+    
+    // 1. Read graph
+    read_software_project_management(&G, &n, &m, &alpha, &beta);
+    
+    // 2-3. Add source and sink
+    add_source_sink(&G, alpha, beta);
+    
+    // 4. Topological sort
+    topo_sort(&G, &L);
+    
+    // 5. Calculate earliest start times
+    earliest_start(&G, &L, alpha, t);
+    
+    // 6. Calculate latest start times
+    latest_start(&G, &L, beta, t, T);
+    
+    // 7. Print results
+    print_max_time(&G, t, T);
     
     return 0;
 }
-

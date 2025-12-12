@@ -12,25 +12,41 @@ typedef struct
 
 void init_queue(Queue* pQ)
 {
-    pQ->front = 1;
-    pQ->rear = 0;
+    pQ->front = -1;
+    pQ->rear = -1;
 }
 int empty_queue(Queue* pQ)
 {
-    return pQ->front > pQ->rear;
+    return pQ->front == -1;
+}
+int full_queue(Queue* pQ)
+{
+    return pQ->front == (pQ->rear + 1) % MAX;   
 }
 void push_queue(Queue* pQ, int x)
 {
-    if (pQ->rear == MAX)    
+    if (full_queue(pQ))    
         return;
-    pQ->rear++;
+    if (pQ->front == -1)
+    {
+        pQ->front = 0;
+        pQ->rear = 0;
+        pQ->data[pQ->rear] = x;
+        return;
+    }
+    pQ->rear = (pQ->rear + 1) % MAX;
     pQ->data[pQ->rear] = x;
 }
 void pop_queue(Queue* pQ)
 {
     if (empty_queue(pQ))
         return;
-    pQ->front++;
+    if (pQ->front == pQ->rear)
+    {
+        init_queue(pQ);
+        return;
+    }
+    pQ->front = (pQ->front + 1) % MAX;
 }
 int front_queue(Queue* pQ)
 {
@@ -69,9 +85,8 @@ void init_weightedgraph(Graph* pG, int n)
 
 /* ================== FORD - FULKERSON ================== */
 #define oo 9999999
-int max_flow = 0;
 
-void FordFulkerson(Graph* pG, int s, int t)
+void FordFulkerson(Graph* pG, int s, int t, int* max_flow)
 {
     // Init flow
     init_flow(pG);
@@ -98,8 +113,10 @@ void FordFulkerson(Graph* pG, int s, int t)
             // 2.1. Pop & take a vertex u in Q
             int u = front_queue(&Q); 
             pop_queue(&Q);
-            // 2.2. Consider assigning labels to neighbours of u: directed edge (u -> v)
+           
             for (int v = 1; v <= pG->n; v++)
+            {
+                 // 2.2. Consider assigning labels to neighbours of u: directed edge (u -> v)
                 if (pG->C[u][v] != 0 && labels[v].dir == 0 && pG->F[u][v] < pG->C[u][v])
                 {
                     labels[v].dir = +1; // Directed edge
@@ -108,8 +125,7 @@ void FordFulkerson(Graph* pG, int s, int t)
 
                     push_queue(&Q, v);
                 }
-            // 2.3. Consider assigning labels for vertices neighbouring u: incoming edge (v -> u)
-            for (int v = 1; v <= pG->n; v++)
+                // 2.3. Consider assigning labels for vertices neighbouring u: incoming edge (v -> u)
                 if (pG->C[v][u] != 0 && labels[v].dir == 0 && pG->F[v][u] > 0)
                 {
                     labels[v].dir = -1; // Incoming edge
@@ -118,6 +134,8 @@ void FordFulkerson(Graph* pG, int s, int t)
 
                     push_queue(&Q, v);
                 }
+            }
+                
             // 2.4. If t is labelled -> Find augmenting path
             if (labels[t].dir != 0)
             {
@@ -141,7 +159,7 @@ void FordFulkerson(Graph* pG, int s, int t)
                 u = p;
             }
             // 3.2. Augment flow
-            max_flow += sigma;
+            *max_flow += sigma;
         }
         else
             break; 
@@ -199,18 +217,18 @@ int main()
     Graph G;
 
     /* ------------------ FIND THE MAXIMUM FLOW IN THE NETWORK ------------------ */
- {   int n, m, u, v, e, c;
+ {   int n, m, u, v, e, c, max_flow = 0;
     freopen("D:\\CODE C\\Library\\Data-Weighted_EdgeList-1.txt", "r", stdin);
         scanf("%d%d", &n, &m);
         init_weightedgraph(&G, n);
-        for (e = 0; e < m; e++)
+        for (e = 1; e <= m; e++)
         {
             scanf("%d%d%d", &u, &v, &c);
             G.C[u][v] = c;
         }
     fclose(stdin);
 
-    FordFulkerson(&G, 1, n);
+    FordFulkerson(&G, 1, n, &max_flow);
 
     printf("Max flow: %d\n", max_flow);
     printf("S: ");
@@ -222,14 +240,15 @@ int main()
     for (u = 1; u <= n; u++)
         if (labels[u].dir == 0)
             printf("%d ", u);
+    printf("\n");
 }
 
     /* ------------------ CHECKING FOR VALID STREAMS ------------------ */
  {   int n, m, u, v, e, c, f;
-    freopen("D:\\CODE C\\Library\\Data-Weighted_EdgeList-1.txt", "r", stdin);
+    freopen("D:\\CODE C\\Library\\Data-Flow_Weighted_EdgeList-1.txt", "r", stdin);
         scanf("%d%d", &n, &m);
         init_weightedgraph(&G, n);
-        for (e = 0; e < m; e++)
+        for (e = 1; e <= m; e++)
         {
             scanf("%d%d%d%d", &u, &v, &c, &f);
             G.C[u][v] = c;

@@ -17,7 +17,7 @@
 
 + Degree
 
-+ Neighbors
++ Neighbours
 
 + Read graph
 
@@ -43,29 +43,35 @@
 
 **[3] Transversal And Connectivity Of A Graph**
       
-+ Depth First Search (DFS) using stack
++ Depth First Search (DFS) using stack or recursion
 
-+ Depth First Search (DFS) using recursion
+    + Find cycle, Find connected components, Web crawler, Robot navigation, Flood filling/Seed filling in Image Processing, ...
 
 + Breadth First Search (BFS) using queue
 
-+ Kosaraju's algorithm to find Strongly Connected Components (SCC)
+    + Grid-based game, Knight shortest path, Eigth queens, Priests and devils, ...
 
-+ Tarjan's algorithm to find Strongly Connected Components (SCC)
++ Strongly Connected Components (SCC): Tarjan, Kosaraju
+
+    + Find strongly related in social media, Module analyzing, ...
 
 **[4] Cycle**
 
-+ Three colours to check cycle 
++ Three colours cycle detection 
+
+    + Deadlock detection, Detect loops in dependency (npm, pip), Checking task assignment consistency, ...
 
 + Bipartite graph 
 
-+ Construct Eulerian path using Fleury's algorithm
+    + Exam scheduling without conflicts, Matching tasks, Two-coloring (hot/cold wires), ...
 
-+ Construct Eulerian path using Hierholzer's algorithm
++ Eulerian path : Fleury, Hierholzer
+
+    + Urban inspection route design, Electrical wiring inspection cycles, ...
 
 + Hamiltonian path
 
-+ Travelling Salesman Problem
+  + Travelling Salesman Problem, Bus tour planning, Designing circuits with no node repetition, ...
       
 ### ***Advanced Knowledge***
 ---
@@ -74,41 +80,63 @@
 
 + Moore - Dijkstra
 
+    + GPS navigation in Google Maps, Network routing, Minimizing transportation cost, ...
+
 + Bellman - Ford
+
+    + Detecting negative cycles – financial arbitrage, ...
 
 + Floyd - Warshall
 
-+ A* (Heuristic)
+    + All-pairs shortest paths for static routing tables, Centrality calculation, Social network analysis: compute distance between users, ...
+
++ A* 
+
+    + AI pathfinding in games (Minecraft, Assassin’s Creed), Geographic heuristic pathfinding, Robot navigation in Amazon warehouses, ...
 
 **[2] Topological Sort**
 
-+ Kahn 
++ Kahn (BFS)
+
+    + University course scheduling, Data processing pipeline analysis, CI/CD pipeline step ordering, ...
 
 + Graph Ranking
 
+    + Developer task prioritization, ...
+
 + Project Management
+
+    + Critical path detection, PERT/CPM project management, ...
 
 **[3] Minimum Undirected Spanning Tree**
 
 + Kruskal
 
+    + Cost-efficient telecom network design, Maze generation in games, Connecting residential areas with minimal cables, ...
+
 + Prim
+
+    + Growing a road network from a central hub, ...
 
 + Boruvka
 
+    + Suitable for large-scale, national network systems, ...
+
 **[4] Minimum Directed Spanning Tree**
 
-+ Chu - Liu
++ Chu - Liu / Edmonds
 
-+ Edmonds
+    + Designing optimal one-way street systems, Optimizing decision trees in AI systems, Building an internet backbone from a root router, ...
 
 **[5] Maximum Flow**
 
-+ Ford - Fulkerson
++ Ford - Fulkerson (Edmonds - Karp)
 
-+ Edmonds - Karp
+    + Logistics flow (goods through warehouses), Water/oil/electricity pipeline systems, Internet bandwidth allocation, Maximum matching problems, Traffic flow optimization in cities, ...
 
-+ Dinic
++ Dinic (Dinitz)
+
+    + Resource allocation (server ↔ job mapping), Matching on large graphs (Facebook, Twitter), High-speed max-flow for exam scheduling/job assignment/real-time data routing, ...
 
 #
 
@@ -147,6 +175,8 @@ gcc main.c -ldatastructure -o main.exe
         "${fileDirname}\\${fileBasenameNoExtension}.exe"
       ],
 ```
+
+
 > _You can also customize these files as you prefer. Here are the steps you can follow to recreate your own static library._
 
 - First, make your own `.c` file with  definitions (implementations) of functions. For instance:
@@ -202,6 +232,14 @@ ar rcs <lib___>.a <Object file>.o
 ```
 - Copy the header file `.h` to `include` and `lib...a` to `lib` as I meantioned above with shell commands or manually like the above steps.
 ```shell
+xcopy /Y DataStructure.h C:\msys64\ucrt64\include
+xcopy /Y libdatastructure.a C:\msys64\ucrt64\lib
+```
+For example:
+```shell
+cd "D:\CODE C\DataStructure-Library"
+D:\CODE C\DataStructure-Library> gcc -c -Wall -g DataStructure.c -o DataStructure.o
+D:\CODE C\DataStructure-Library> ar rcs libdatastructure.a DataStructure.o
 xcopy /Y DataStructure.h C:\msys64\ucrt64\include
 xcopy /Y libdatastructure.a C:\msys64\ucrt64\lib
 ```

@@ -47,26 +47,26 @@ void MooreDijkstra(Graph* pG, int x) // O(n^2)
 /* ================== ROBOT MAZE ================== */
 int di[] = {-1, 1, 0, 0}; // Move left, right
 int dj[] = {0, 0, -1, 1}; // Move up, down
-int N, M;
+int M, N;
 
 void read_maze(Graph* pG)
 {
     freopen("D:\\CODE C\\Library\\Data-Robot_Maze-1.txt", "r", stdin);
-        scanf("%d%d", &N, &M);
-        int maze[N][M];
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < M; j++)
+        scanf("%d%d", &M, &N);
+        int maze[M][N];
+        for (int i = 0; i < M; i++)
+            for (int j = 0; j < N; j++)
             {
                 scanf("%d", &maze[i][j]);
             }
 
-        init_weightedgraph(pG, N*M);
+        init_weightedgraph(pG, M*N);
 
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < M; j++)
+        for (int i = 0; i < M; i++)
+            for (int j = 0; j < N; j++)
             {
                 int ii, jj;
-                int u = (i*M + j) + 1;
+                int u = (i*N + j) + 1;
                 int v;
                 for (int k = 0; k < 4; k++)
                 {
@@ -74,9 +74,9 @@ void read_maze(Graph* pG)
                     jj = j + dj[k];
                     
                     // Check if (ii;jj) is in maze
-                    if (ii >= 0 && ii < N && jj >= 0 && jj < M)
+                    if (ii >= 0 && ii < M && jj >= 0 && jj < N)
                     {
-                        v = (ii*M + jj) + 1;
+                        v = (ii*N + jj) + 1;
                         add_edge_weightedgraph_Directed(pG, u, v, maze[ii][jj]);
                     }
                 }
